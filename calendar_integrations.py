@@ -120,3 +120,29 @@ def book_slot_on_calendar(slot):
 
     meet_link = event.get('hangoutLink', 'No meet link generated')
     return f"Slot booked for {start_dt.strftime('%d %b %I:%M %p')}. Meet link: {meet_link}"
+
+from zoneinfo import ZoneInfo
+
+if __name__ == "__main__":
+    tz = ZoneInfo("Asia/Kolkata")
+    start = datetime.now(tz)
+    end = start + timedelta(hours=2)
+    print("Start:",start) #Timezone aware start ISO
+    print("End:",end) #Timezone aware end ISO
+    slots, busy = get_available_slots_on_calender(start, end)
+    print("Available slots:", slots) #start,end datetime range for available slots 
+    print("Busy slots:", busy) #start,end datetime range for busy slots 
+    
+    def format_slot_range(slots):
+            """
+            Augments the slots in natural language for forwarding it to LLM
+            """
+            return "\n".join(
+                f"{start.strftime('%d %b %I:%M %p')} to {end.strftime('%I:%M %p')}" for start, end in slots
+            ) or "None"
+
+    free_str = format_slot_range(slots)
+    busy_str = format_slot_range(busy)
+    print(f"BUSY SLOTS:\n{busy_str}\n\nFREE SLOTS:\n{free_str}") #Augmented info
+    test_slot = (datetime.now(tz) + timedelta(hours=1)).replace(microsecond=0).isoformat() #Creates a slot for testing
+    print(book_slot_on_calendar(test_slot)) #Books the test slot on calendar

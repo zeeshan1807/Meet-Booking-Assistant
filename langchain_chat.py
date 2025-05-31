@@ -104,6 +104,9 @@ class Chat:
         available_slots, busy_slots = get_available_slots_on_calender(start_time, end_time)
 
         def format_slot_range(slots):
+            """
+            Augments the slots in natural language for forwarding it to LLM
+            """
             return "\n".join(
                 f"{start.strftime('%d %b %I:%M %p')} to {end.strftime('%I:%M %p')}" for start, end in slots
             ) or "None"
