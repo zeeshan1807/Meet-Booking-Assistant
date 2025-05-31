@@ -1,0 +1,6 @@
+.venv/*
+.env
+credentials.json
+desktop_credentials.json
+token.json
+google_service_account_keys.json
