@@ -66,7 +66,7 @@ class Chat:
         - Always ask the user to provide their preferred time range in IST timezone when the user expresses interest in booking a meeting. 
         - Consider current time as {datetime.now()} for any relative time range calculations.
         - If no preferences received then take next 3 days from now as default range.
-        - Always call `get_slots` first with the start_time and end_time as extracted from user's preference.
+        - Always call `get_available_slots` first with the start_time and end_time as extracted from user's preference.
         - Only call `book_slot` after the user explicitly confirms a specific time slot.
         - If the user's specified time slot is already a BUSY SLOT, do not call `book_slot` but ask the user to choose another slot.
         - Suggest alternative slots if the preferred slot is not available.
